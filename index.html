@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maddikunta Dakshyani — Senior Java Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0e0e0e;
+    --paper: #f5f0e8;
+    --cream: #ede8dc;
+    --accent: #c84b2f;
+    --gold: #b8972e;
+    --muted: #6b6560;
+    --line: rgba(14,14,14,0.12);
+    --mono: 'DM Mono', monospace;
+    --serif: 'Playfair Display', serif;
+    --sans: 'Outfit', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 4rem;
+    background: rgba(245,240,232,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 4rem 6rem 6rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-title {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    border-left: 3px solid var(--gold);
+    padding-left: 1rem;
+  }
+
+  .hero-bio {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: #3a3530;
+    max-width: 480px;
+    margin-bottom: 3rem;
+  }
+
+  .hero-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .hero-contact-item {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .hero-contact-item:hover { color: var(--accent); }
+
+  .hero-contact-item .ci { color: var(--accent); font-size: 0.9rem; }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0.9rem 2rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.25s, transform 0.2s;
+    width: fit-content;
+  }
+
+  .hero-cta:hover { background: var(--accent); transform: translateY(-2px); }
+
+  .hero-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--cream);
+    overflow: hidden;
+  }
+
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 39px,
+      rgba(14,14,14,0.04) 39px,
+      rgba(14,14,14,0.04) 40px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 39px,
+      rgba(14,14,14,0.04) 39px,
+      rgba(14,14,14,0.04) 40px
+    );
+  }
+
+  .hero-avatar-wrap {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+
+  .hero-avatar {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #c84b2f 0%, #b8972e 50%, #1f4e79 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-size: 5rem;
+    font-weight: 900;
+    color: white;
+    margin: 0 auto 2rem;
+    box-shadow: 0 30px 80px rgba(200,75,47,0.3), 0 0 0 20px rgba(200,75,47,0.08);
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+  }
+
+  .stat-item { text-align: center; }
+
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.25rem;
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    bottom: -2rem;
+    right: -1rem;
+    font-family: var(--serif);
+    font-size: 14rem;
+    font-weight: 900;
+    color: rgba(14,14,14,0.04);
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* ── SECTION COMMON ── */
+  section {
+    padding: 7rem 6rem;
+    position: relative;
+  }
+
+  section:nth-child(even) { background: var(--cream); }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+    max-width: 80px;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.5vw, 3.2rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 4rem;
+    letter-spacing: -0.02em;
+  }
+
+  /* ── EDUCATION ── */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .edu-card {
+    background: var(--paper);
+    padding: 3rem;
+    border: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+
+  .edu-card:hover { transform: translateY(-4px); }
+
+  .edu-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--accent);
+  }
+
+  .edu-year {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .edu-degree {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
+
+  .edu-school {
+    font-size: 0.95rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .edu-subjects {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .edu-badge {
+    position: absolute;
+    top: 2rem; right: 2rem;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0.3rem 0.7rem;
+  }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--ink); color: var(--paper); }
+
+  #skills .section-label { color: var(--gold); }
+  #skills .section-label::after { background: rgba(255,255,255,0.1); }
+  #skills .section-title { color: var(--paper); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem 5rem;
+  }
+
+  .skill-group-title {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-tag {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    padding: 0.35rem 0.85rem;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(245,240,232,0.8);
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+    cursor: default;
+  }
+
+  .skill-tag:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+  }
+
+  .skill-tag.hot {
+    background: rgba(200,75,47,0.15);
+    border-color: rgba(200,75,47,0.4);
+    color: #e8a090;
+  }
+
+  /* ── EXPERIENCE ── */
+  .exp-timeline {
+    position: relative;
+    padding-left: 3rem;
+  }
+
+  .exp-timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0.5rem; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+  }
+
+  .exp-item {
+    position: relative;
+    margin-bottom: 4rem;
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideIn 0.6s forwards;
+  }
+
+  .exp-item:nth-child(1) { animation-delay: 0.1s; }
+  .exp-item:nth-child(2) { animation-delay: 0.2s; }
+  .exp-item:nth-child(3) { animation-delay: 0.3s; }
+  .exp-item:nth-child(4) { animation-delay: 0.4s; }
+  .exp-item:nth-child(5) { animation-delay: 0.5s; }
+  .exp-item:nth-child(6) { animation-delay: 0.6s; }
+
+  @keyframes slideIn {
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .exp-dot {
+    position: absolute;
+    left: -3.4rem;
+    top: 0.4rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--paper);
+    box-shadow: 0 0 0 3px rgba(200,75,47,0.2);
+  }
+
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.4rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .exp-role {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+
+  .exp-date {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    white-space: nowrap;
+    padding: 0.3rem 0.75rem;
+    border: 1px solid var(--line);
+  }
+
+  .exp-company {
+    font-size: 0.9rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    font-family: var(--mono);
+    letter-spacing: 0.05em;
+  }
+
+  .exp-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .exp-bullets li {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: #3a3530;
+    padding-left: 1.25rem;
+    position: relative;
+  }
+
+  .exp-bullets li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 0.8rem;
+  }
+
+  .exp-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1rem;
+  }
+
+  .exp-tech span {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    padding: 0.2rem 0.6rem;
+    background: rgba(200,75,47,0.08);
+    color: var(--accent);
+    border: 1px solid rgba(200,75,47,0.2);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── EXPERTISE ── */
+  #expertise { background: var(--cream); }
+
+  .expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .expertise-card {
+    background: var(--paper);
+    padding: 3rem 2.5rem;
+    border: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .expertise-card:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .expertise-card:hover .exp-card-title { color: var(--paper); }
+  .expertise-card:hover .exp-card-text { color: rgba(245,240,232,0.7); }
+  .expertise-card:hover .exp-card-icon { color: var(--gold); }
+  .expertise-card:hover .exp-card-num { color: rgba(245,240,232,0.1); }
+
+  .exp-card-num {
+    position: absolute;
+    top: 1.5rem; right: 1.5rem;
+    font-family: var(--serif);
+    font-size: 4rem;
+    font-weight: 900;
+    color: rgba(14,14,14,0.05);
+    line-height: 1;
+    transition: color 0.3s;
+  }
+
+  .exp-card-icon {
+    font-size: 2rem;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    transition: color 0.3s;
+  }
+
+  .exp-card-title {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    transition: color 0.3s;
+  }
+
+  .exp-card-text {
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: var(--muted);
+    transition: color 0.3s;
+  }
+
+  /* ── CONTACT STRIP ── */
+  #contact {
+    background: var(--accent);
+    color: white;
+    padding: 5rem 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-heading {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+  }
+
+  .contact-heading em {
+    font-style: italic;
+    opacity: 0.7;
+  }
+
+  .contact-links {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 2rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.25s;
+    font-weight: 500;
+  }
+
+  .contact-btn.primary {
+    background: white;
+    color: var(--accent);
+  }
+
+  .contact-btn.secondary {
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.5);
+  }
+
+  .contact-btn:hover { transform: translateY(-3px); opacity: 0.9; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(245,240,232,0.4);
+    padding: 2rem 6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 2rem; }
+    nav .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 6rem 2rem 4rem; }
+    section { padding: 5rem 2rem; }
+    .edu-grid, .skills-grid, .expertise-grid { grid-template-columns: 1fr; }
+    #contact { padding: 4rem 2rem; }
+    footer { padding: 2rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">MD.</a>
+  <ul class="nav-links">
+    <li><a href="#education">Education</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Available for new opportunities</div>
+    <h1 class="hero-name">
+      Maddikunta<br><em>Dakshyani</em>
+    </h1>
+    <div class="hero-title">Senior Software Engineer · Java · Cloud · Microservices</div>
+    <p class="hero-bio">
+      Senior Java Engineer with 6+ years of experience designing and building scalable backend systems and cloud-native applications. Specializing in distributed systems, event-driven architectures, and enterprise-grade microservices.
+    </p>
+    <div class="hero-contacts">
+      <a href="tel:+14846454156" class="hero-contact-item">
+        <span class="ci">📞</span> +1 (484) 645-4156
+      </a>
+      <a href="mailto:maddikuntad14@gmail.com" class="hero-contact-item">
+        <span class="ci">✉</span> maddikuntad14@gmail.com
+      </a>
+      <a href="https://www.linkedin.com/in/maddikunta" target="_blank" class="hero-contact-item">
+        <span class="ci">🔗</span> linkedin.com/in/maddikunta
+      </a>
+    </div>
+    <a href="mailto:maddikuntad14@gmail.com" class="hero-cta">
+      Get In Touch →
+    </a>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-avatar-wrap">
+      <div class="hero-avatar">MD</div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">6+</div>
+          <div class="stat-label">Years Exp.</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">6</div>
+          <div class="stat-label">Companies</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">M.S.</div>
+          <div class="stat-label">Comp. Sci.</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-bg-text">Java</div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label">01 — Education</div>
+  <h2 class="section-title">Academic<br>Foundation</h2>
+  <div class="edu-grid reveal">
+    <div class="edu-card">
+      <div class="edu-badge">M.S. Degree</div>
+      <div class="edu-year">2023 — 2024</div>
+      <div class="edu-degree">Master of Science<br>Computer Science</div>
+      <div class="edu-school">University of Central Missouri, USA</div>
+      <div class="edu-subjects">Full-time graduate study covering advanced software engineering, distributed systems, cloud computing, algorithms, data analysis, and machine learning methodologies.</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-badge">B.Tech Degree</div>
+      <div class="edu-year">2013 — 2017</div>
+      <div class="edu-degree">Bachelor of Technology<br>Computer Science & Engineering</div>
+      <div class="edu-school">India</div>
+      <div class="edu-subjects">Core computer science fundamentals including data structures, algorithms, object-oriented programming, database systems, operating systems, and software engineering principles.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">02 — Skills</div>
+  <h2 class="section-title">Technical<br>Arsenal</h2>
+  <div class="skills-grid reveal">
+    <div>
+      <div class="skill-group-title">Core Languages</div>
+      <div class="skill-tags">
+        <span class="skill-tag hot">Java SE 8/11/17</span>
+        <span class="skill-tag">J2EE</span>
+        <span class="skill-tag">SQL</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">HTML5 / CSS3</span>
+        <span class="skill-tag">XML / JSON</span>
+      </div>
+    </div>
+    <div>
+      <div class="skill-group-title">Frameworks & Libraries</div>
+      <div class="skill-tags">
+        <span class="skill-tag hot">Spring Boot</span>
+        <span class="skill-tag hot">Spring MVC</span>
+        <span class="skill-tag">Spring Security</span>
+        <span class="skill-tag">Spring Data JPA</span>
+        <span class="skill-tag">Hibernate ORM</span>
+        <span class="skill-tag">React</span>
+        <span class="skill-tag">Node.js</span>
+      </div>
+    </div>
+    <div>
+      <div class="skill-group-title">Cloud & DevOps</div>
+      <div class="skill-tags">
+        <span class="skill-tag hot">AWS</span>
+        <span class="skill-tag hot">Azure</span>
+        <span class="skill-tag">Docker</span>
+        <span class="skill-tag">Kubernetes</span>
+        <span class="skill-tag">Jenkins</span>
+        <span class="skill-tag">CI/CD Pipelines</span>
+        <span class="skill-tag">GitHub</span>
+        <span class="skill-tag">Maven</span>
+      </div>
+    </div>
+    <div>
+      <div class="skill-group-title">Data & Messaging</div>
+      <div class="skill-tags">
+        <span class="skill-tag hot">Apache Kafka</span>
+        <span class="skill-tag">MySQL</span>
+        <span class="skill-tag">PostgreSQL</span>
+        <span class="skill-tag">MongoDB</span>
+        <span class="skill-tag">Oracle</span>
+        <span class="skill-tag">Redis</span>
+        <span class="skill-tag">Splunk</span>
+        <span class="skill-tag">ELK Stack</span>
+      </div>
+    </div>
+    <div>
+      <div class="skill-group-title">Architecture & APIs</div>
+      <div class="skill-tags">
+        <span class="skill-tag hot">Microservices</span>
+        <span class="skill-tag hot">REST APIs</span>
+        <span class="skill-tag">Event-Driven Architecture</span>
+        <span class="skill-tag">Distributed Systems</span>
+        <span class="skill-tag">Swagger/OpenAPI</span>
+        <span class="skill-tag">OAuth2 / JWT</span>
+      </div>
+    </div>
+    <div>
+      <div class="skill-group-title">Testing & Quality</div>
+      <div class="skill-tags">
+        <span class="skill-tag">JUnit 4/5</span>
+        <span class="skill-tag">Mockito</span>
+        <span class="skill-tag">Selenium</span>
+        <span class="skill-tag">TDD / BDD</span>
+        <span class="skill-tag">SonarQube</span>
+        <span class="skill-tag">Code Reviews</span>
+        <span class="skill-tag">Agile/Scrum</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">03 — Experience</div>
+  <h2 class="section-title">Professional<br>Journey</h2>
+
+  <div class="exp-timeline">
+
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-header">
+        <div class="exp-role">Technology Analyst / Senior Software Engineer</div>
+        <div class="exp-date">Oct 2024 — Present</div>
+      </div>
+      <div class="exp-company">Infosys — USA</div>
+      <ul class="exp-bullets">
+        <li>Design and develop scalable backend and full-stack applications using Java, Spring Boot, REST APIs, React, and Node.js.</li>
+        <li>Build cloud-native microservices deployed on Azure using Docker, Kubernetes, and CI/CD pipelines.</li>
+        <li>Implement Kafka-based event-driven pipelines enabling real-time data processing and analytics.</li>
+        <li>Develop monitoring and telemetry solutions using Splunk and log analytics to track system performance.</li>
+        <li>Provide production support and incident troubleshooting across distributed services.</li>
+      </ul>
+      <div class="exp-tech">
+        <span>Java</span><span>Spring Boot</span><span>Azure</span><span>Kafka</span><span>Docker</span><span>Kubernetes</span><span>Splunk</span>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-header">
+        <div class="exp-role">Software Engineer</div>
+        <div class="exp-date">Feb 2022 — Dec 2022</div>
+      </div>
+      <div class="exp-company">Wipro — India</div>
+      <ul class="exp-bullets">
+        <li>Developed backend microservices using Java, Spring Boot, and Kafka for enterprise platforms.</li>
+        <li>Designed RESTful APIs and integrated SQL/NoSQL databases with JPA/Hibernate.</li>
+        <li>Built automated testing frameworks using JUnit and Mockito.</li>
+        <li>Containerized services and deployed applications through Jenkins CI/CD pipelines.</li>
+      </ul>
+      <div class="exp-tech">
+        <span>Java</span><span>Spring Boot</span><span>Kafka</span><span>JUnit</span><span>Jenkins</span><span>Docker</span>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-header">
+        <div class="exp-role">Associate Consultant</div>
+        <div class="exp-date">Sep 2021 — Dec 2021</div>
+      </div>
+      <div class="exp-company">Capgemini — India</div>
+      <ul class="exp-bullets">
+        <li>Delivered consulting solutions aligned with client technical and business requirements.</li>
+        <li>Developed full-stack features using React and Java backend services.</li>
+        <li>Improved system reliability and observability in event-driven architectures.</li>
+      </ul>
+      <div class="exp-tech">
+        <span>Java</span><span>React</span><span>REST APIs</span><span>Event-Driven</span>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-header">
+        <div class="exp-role">Associate Software Engineer</div>
+        <div class="exp-date">Apr 2019 — Jul 2021</div>
+      </div>
+      <div class="exp-company">Cognizant — India</div>
+      <ul class="exp-bullets">
+        <li>Led migration of legacy applications to microservices architecture.</li>
+        <li>Developed backend services using Spring Boot and MongoDB.</li>
+        <li>Implemented enterprise data workflows and integration services.</li>
+      </ul>
+      <div class="exp-tech">
+        <span>Java</span><span>Spring Boot</span><span>MongoDB</span><span>Microservices</span>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-header">
+        <div class="exp-role">Senior Software Engineer</div>
+        <div class="exp-date">Apr 2018 — Apr 2019</div>
+      </div>
+      <div class="exp-company">Intellect Design Arena Limited — India</div>
+      <ul class="exp-bullets">
+        <li>Developed enterprise banking and financial services applications using Java, Spring Boot, and microservices.</li>
+        <li>Built RESTful APIs and integration services connecting internal systems and third-party financial platforms.</li>
+        <li>Worked on cloud-based deployments using Docker and Kubernetes.</li>
+        <li>Contributed to CI/CD automation pipelines improving deployment speed and release stability.</li>
+      </ul>
+      <div class="exp-tech">
+        <span>Java</span><span>Spring Boot</span><span>Banking</span><span>Docker</span><span>Kubernetes</span><span>CI/CD</span>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-header">
+        <div class="exp-role">Java Developer</div>
+        <div class="exp-date">Aug 2017 — Mar 2018</div>
+      </div>
+      <div class="exp-company">QueLabs Technologies — India</div>
+      <ul class="exp-bullets">
+        <li>Developed backend services using Java, Spring, and Hibernate.</li>
+        <li>Optimized database performance and improved application scalability.</li>
+        <li>Supported deployments, bug fixes, and feature development.</li>
+      </ul>
+      <div class="exp-tech">
+        <span>Java</span><span>Spring</span><span>Hibernate</span><span>SQL</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERTISE -->
+<section id="expertise">
+  <div class="section-label">04 — Expertise</div>
+  <h2 class="section-title">Areas of<br>Deep Expertise</h2>
+  <div class="expertise-grid reveal">
+
+    <div class="expertise-card">
+      <div class="exp-card-num">01</div>
+      <div class="exp-card-icon">☁️</div>
+      <div class="exp-card-title">Cloud-Native Backend Engineering</div>
+      <p class="exp-card-text">Architecting and delivering enterprise-grade cloud-native applications on AWS and Azure using Docker, Kubernetes, and Spring Boot microservices with full CI/CD automation. Experienced in building resilient, highly available distributed systems that scale seamlessly under load.</p>
+    </div>
+
+    <div class="expertise-card">
+      <div class="exp-card-num">02</div>
+      <div class="exp-card-icon">⚡</div>
+      <div class="exp-card-title">Event-Driven & Distributed Systems</div>
+      <p class="exp-card-text">Designing and implementing Kafka-based event-driven architectures for real-time data pipelines, streaming analytics, and asynchronous microservices communication. Deep expertise in distributed system design patterns, fault tolerance, and observability using Splunk and ELK Stack.</p>
+    </div>
+
+    <div class="expertise-card">
+      <div class="exp-card-num">03</div>
+      <div class="exp-card-icon">🏦</div>
+      <div class="exp-card-title">Enterprise & Financial Systems</div>
+      <p class="exp-card-text">Building mission-critical banking and financial services platforms processing high-volume transactions. Experience at Intellect Design Arena and Infosys delivering secure, compliant, and high-performance enterprise systems with payment integrations and regulatory compliance.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div>
+    <div class="contact-heading">
+      Let's build something<br><em>remarkable together.</em>
+    </div>
+  </div>
+  <div class="contact-links">
+    <a href="mailto:maddikuntad14@gmail.com" class="contact-btn primary">
+      ✉ Send Email
+    </a>
+    <a href="https://www.linkedin.com/in/maddikunta" target="_blank" class="contact-btn secondary">
+      🔗 LinkedIn Profile
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Maddikunta Dakshyani</span>
+  <span>Senior Java Engineer · Cloud · Microservices</span>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+
+  // Nav active highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+    });
+  });
+</script>
+</body>
+</html>
